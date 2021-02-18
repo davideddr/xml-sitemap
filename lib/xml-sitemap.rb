@@ -22,17 +22,17 @@ module XmlSitemap
     # domain  - Primary domain
     # options - Map options
     #
-    def map(domain, options={})
-      XmlSitemap::Map.new(domain, options) 
+    def map(domain, options = {})
+      XmlSitemap::Map.new(domain, options)
     end
-    
+
     alias :new :map
-    
+
     # Shortcut to XmlSitemap::Index.new
     #
     # options - Index options
-    # 
-    def index(options={})
+    #
+    def index(options = {})
       XmlSitemap::Index.new(options)
     end
   end
