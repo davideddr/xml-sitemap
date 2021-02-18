@@ -17,7 +17,7 @@ Or using latest source code:
 ```
 rake install
 ```
-  
+
 ## Configuration
 
 Add gem to your Gemfile and you're ready to go:
@@ -27,22 +27,25 @@ gem 'xml-sitemap'
 ```
 
 ## Usage
-  
+
 Simple usage:
 
 ```ruby
 map = XmlSitemap::Map.new('domain.com') do |m|
   # Adds a simple page
-  m.add '/page1'  
+  m.add '/page1'
 
   # You can drop leading slash, it will be automatically added
   m.add 'page2'
 
   # Set the page priority
-  m.add 'page3', :priority => 0.2
+  m.add 'page3', priority: 0.2
 
   # Specify last modification date and update frequiency
-  m.add 'page4', :updated => Date.today, :period => :never
+  m.add 'page4', updated: Date.today, period: :never
+
+  # Specify alternates links => https://developers.google.com/search/docs/advanced/crawling/localized-versions
+  m.add 'page5_en', alternates: [{ href: 'page5_en', lang: 'en' }, { href: 'page5_it', lang: 'it' }]
 end
 ```
 
@@ -70,8 +73,8 @@ You can also create a map via shortcut:
 map = XmlSitemap.new('foobar.com')
 map = XmlSitemap.map('foobar.com')
 ```
-  
-By default XmlSitemap creates a map with link to homepage of your domain. 
+
+By default XmlSitemap creates a map with link to homepage of your domain.
 
 Homepage priority is `1.0`.
 
@@ -100,11 +103,11 @@ Available options:
 - `:home`   - Disable homepage autocreation, but you still can do that manually. *(default: true)*
 - `:root`   - Force all links to fall under the main domain. You can add full urls (not paths) if set to false. *(default: true)*
 - `:time`   - Provide a creation time for the sitemap. (default: current time)
-- `:group`  - Group name for sitemap index. *(default: sitemap)* 
+- `:group`  - Group name for sitemap index. *(default: sitemap)*
 
 ### Render Engines
 
-XmlSitemap has a few different rendering engines. You can select one passing argument to `render` method. 
+XmlSitemap has a few different rendering engines. You can select one passing argument to `render` method.
 
 Available engines:
 
@@ -123,7 +126,7 @@ Usage:
 ```ruby
 map = XmlSitemap::Map.new('domain.com')
 map.add 'page'
-    
+
 index = XmlSitemap::Index.new
 
 # or if you want the URLs to use HTTPS
