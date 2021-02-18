@@ -20,18 +20,18 @@ module XmlSitemap
     # opts[:root]   - Force all links to fall under the main domain.
     #                 You can add full urls (not paths) if set to false. (default: true)
     #
-    def initialize(domain, opts={})
-      @domain     = domain.to_s.strip
+    def initialize(domain, opts = {})
+      @domain = domain.to_s.strip
       raise ArgumentError, 'Domain required!' if @domain.empty?
 
       @created_at = opts[:time]   || Time.now.utc
       @secure     = opts[:secure] || false
       @home       = opts.key?(:home) ? opts[:home] : true
       @root       = opts.key?(:root) ? opts[:root] : true
-      @group      = opts[:group] || "sitemap"
+      @group      = opts[:group] || 'sitemap'
       @items      = []
 
-      self.add('/', :priority => 1.0) if @home === true
+      self.add('/', priority: 1.0) if @home == true
 
       yield self if block_given?
     end
@@ -46,7 +46,7 @@ module XmlSitemap
     # opts[:priority]      - Item priority.
     # opts[:validate_time] - Skip time validation if want to insert raw strings.
     #
-    def add(target, opts={})
+    def add(target, opts = {})
       raise RuntimeError, 'Only up to 50k records allowed!' if @items.size > 50000
       raise ArgumentError, 'Target required!' if target.nil?
       raise ArgumentError, 'Target is empty!' if target.to_s.strip.empty?
@@ -98,12 +98,12 @@ module XmlSitemap
     #
     def render(method = :string)
       case method
-        when :nokogiri
-          render_nokogiri
-        when :builder
-          render_builder
-        else
-          render_string
+      when :nokogiri
+        render_nokogiri
+      when :builder
+        render_builder
+      else
+        render_string
       end
     end
 
@@ -115,12 +115,12 @@ module XmlSitemap
     # options[:overwrite] - Overwrite the file contents (default: true)
     # options[:gzip]      - Gzip file contents (default: false)
     #
-    def render_to(path, options={})
+    def render_to(path, options = {})
       overwrite = options[:overwrite] == true || true
       compress  = options[:gzip]      == true || false
 
       path = File.expand_path(path)
-      path << ".gz" unless path =~ /\.gz\z/i if compress
+      path << '.gz' unless path =~ /\.gz\z/i if compress
 
       if File.exists?(path) && !overwrite
         raise RuntimeError, "File already exists and not overwritable!"

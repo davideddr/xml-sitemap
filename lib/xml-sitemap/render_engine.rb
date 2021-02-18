@@ -171,12 +171,17 @@ module XmlSitemap
         item_string << "    <lastmod>#{item.lastmod_value}</lastmod>\n"
         item_string << "    <changefreq>#{item.changefreq}</changefreq>\n" if item.changefreq
         item_string << "    <priority>#{item.priority}</priority>\n" if item.priority
+        if item.alternates.present?
+          item.alternates.each do |alternate|
+            item_string << "    <xhtml:link rel=\"alternate\" href=\"#{alternate[:href]}\" hreflang=\"#{alternate[:lang]}\" />\n"
+          end
+        end
         item_string << "  </url>\n"
 
         item_results << item_string
       end
 
-      result << item_results.join("")
+      result << item_results.join('')
       result << "</urlset>\n"
 
       result
